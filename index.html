@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RPM Calculator</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1>RPM Calculator</h1>
+
+    <label for="trans">Select a transmission: </label>
+    <select name="trans" id="trans" oninput="selectClicked()">
+      <option value="none" selected disabled hidden></option>
+      <option value="Muncie M20">Muncie M20</option>
+      <option value="Muncie M21/22">Muncie M21/22</option>
+      <option value="Powerglide">Powerglide</option>
+      <option value="TH350">TH350</option>
+      <option value="TH400">TH400</option>
+      <option value="200-4R">200-4R</option>
+      <option value="700-R4">700R-4</option>
+    </select>
+
+    <div id="transmissionInfo">
+      <h2>Transmission Ratios</h2>
+      <label for="first">1st: </label>
+      <input type="number" name="first" id="first" />
+      <br />
+      <label for="second">2nd: </label>
+      <input type="number" name="second" id="second" />
+      <br />
+      <label for="third">3rd: </label>
+      <input type="number" name="third" id="third" />
+      <br />
+      <label for="fourth">4th: </label>
+      <input type="number" name="fourth" id="fourth" />
+      <br />
+    </div>
+
+    <div id="sizeRatioSpeed">
+      <h2>Tire Size, Rear End Ratio, and Speed</h2>
+      <label for="width">Tire: </label>
+      <input type="number" name="width" id="width" />
+      <label for="ratio">/</label>
+      <input type="number" name="ratio" id="ratio" />
+      <label for="rim">R</label>
+      <input type="number" name="rim" id="rim" />
+
+      <br />
+
+      <label for="rear">Rear End Ratio: </label>
+      <input type="number" name="rear" id="rear" />
+
+      <br />
+
+      <label for="speed">Speed: </label>
+      <input type="number" name="speed" id="speed" value="65" />
+    </div>
+
+    <button type="button" id="enter" onclick="entered()">ENTER</button>
+
+    <h2>RPMs</h2>
+    <p>1st: <span id="out1">_ _ _</span></p>
+    <p>2nd: <span id="out2">_ _ _</span></p>
+    <p>3rd: <span id="out3">_ _ _</span></p>
+    <p>4th: <span id="out4">_ _ _</span></p>
+  </body>
+  <script type="text/javascript" src="./app.js"></script>
+</html>
