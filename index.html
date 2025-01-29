@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>RPM Calculator</title>
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <h1>RPM Calculator</h1>
@@ -37,7 +37,7 @@
     </div>
 
     <div id="sizeRatioSpeed">
-      <h2>Tire Size, Rear End Ratio, and Speed</h2>
+      <h2>Wheel Size, Rear End Ratio, and Speed</h2>
       <label for="width">Tire: </label>
       <input type="number" name="width" id="width" oninput="getTire()" />
       <label for="ratio">/</label>
@@ -62,17 +62,34 @@
 
       <br />
 
-      <label for="speed">Speed: </label>
+      <label for="speed">Speed (mph): </label>
       <input type="number" name="speed" id="speed" value="65" />
     </div>
 
     <button type="button" id="enter" onclick="entered()">ENTER</button>
 
-    <h2>RPMs</h2>
-    <p>1st: <span id="out1">_ _ _</span></p>
-    <p>2nd: <span id="out2">_ _ _</span></p>
-    <p>3rd: <span id="out3">_ _ _</span></p>
-    <p>4th: <span id="out4">_ _ _</span></p>
+    <div id="outRPMs">
+      <h2>RPMs</h2>
+      <p>1st: <span id="out1">_ _ _</span></p>
+      <p>2nd: <span id="out2">_ _ _</span></p>
+      <p>3rd: <span id="out3">_ _ _</span></p>
+      <p>4th: <span id="out4">_ _ _</span></p>
+    </div>
+
+    <br />
+    <br />
+
+    <p id="RPMmessage">
+      On average, RPMs should range from 2200-3000 at 65 mph depending on the
+      car and engine type
+    </p>
+
+    <br />
+    <br />
+
+    <p id="author">
+      Built by: <a href="https://jcraig3.github.io/resume/">Jayden Craig</a>
+    </p>
   </body>
   <script type="text/javascript" src="./app.js"></script>
 </html>

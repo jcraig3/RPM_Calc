@@ -1,0 +1,15 @@
+/**
+div {
+  padding-top: 3%;
+  padding-bottom: 3%;
+
+  background-color: rgb(125, 229, 229);
+  border-color: black;
+  border-radius: 3%;
+}
+**/
+
+#RPMmessage {
+  color: rgb(199, 51, 51);
+  font-style: italic;
+}
