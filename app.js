@@ -11,6 +11,7 @@ var ratio = document.getElementById("ratio");
 var rim = document.getElementById("rim");
 var rear = document.getElementById("rear");
 var speed = document.getElementById("speed");
+var wheelSize = document.getElementById("wheelSize");
 
 //out RPM vars
 var out1 = document.getElementById("out1");
@@ -59,8 +60,16 @@ function selectClicked() {
 }
 
 function getTire() {
-  let sidewalls = ((width.value * (ratio.value / 100)) / 25.4) * 2;
-  tireDiameter = sidewalls + rim.value;
+  if (width.value != NaN && ratio.value != NaN && rim.value != NaN) {
+    let sidewalls = ((width.value * (ratio.value / 100)) / 25.4) * 2;
+    tireDiameter = sidewalls + Number(rim.value);
+    console.log(tireDiameter);
+    wheelSize.value = Math.round(tireDiameter * 100) / 100;
+  }
+}
+
+function updateGetTire() {
+  tireDiameter = wheelSize.value;
 }
 
 function getRPM(transRatio) {
@@ -70,26 +79,14 @@ function getRPM(transRatio) {
     return "_ _ _";
   }
   console.log(transRatio.value.toString());
-  return Math.trunc(out / 2.6935);
+  return Math.trunc(out);
 }
 
 function entered() {
-  getTire();
+  console.log(tireDiameter);
 
   out1.textContent = getRPM(first).toString();
   out2.textContent = getRPM(second).toString();
   out3.textContent = getRPM(third).toString();
   out4.textContent = getRPM(fourth).toString();
-
-  console.log(
-    width.value.toString() +
-      " " +
-      ratio.value.toString() +
-      " " +
-      rim.value.toString() +
-      " " +
-      rear.value.toString() +
-      " " +
-      speed.value.toString()
-  );
 }

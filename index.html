@@ -39,11 +39,21 @@
     <div id="sizeRatioSpeed">
       <h2>Tire Size, Rear End Ratio, and Speed</h2>
       <label for="width">Tire: </label>
-      <input type="number" name="width" id="width" />
+      <input type="number" name="width" id="width" oninput="getTire()" />
       <label for="ratio">/</label>
-      <input type="number" name="ratio" id="ratio" />
+      <input type="number" name="ratio" id="ratio" oninput="getTire()" />
       <label for="rim">R</label>
-      <input type="number" name="rim" id="rim" />
+      <input type="number" name="rim" id="rim" oninput="getTire()" />
+
+      <br />
+
+      <label for="wheelSize">Wheel Size (in): </label>
+      <input
+        type="number"
+        name="wheelSize"
+        id="wheelSize"
+        oninput="updateGetTire()"
+      />
 
       <br />
 
