@@ -9,6 +9,11 @@ div {
 }
 **/
 
+* {
+  text-align: left;
+  padding-left: 3px;
+}
+
 #RPMmessage {
   color: rgb(199, 51, 51);
   font-style: italic;
