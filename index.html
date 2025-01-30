@@ -4,21 +4,24 @@
     <meta charset="UTF-8" />
     <title>RPM Calculator</title>
     <link rel="stylesheet" href="./style.css" />
+    <div id="title">
+      <h1>RPM Calculator</h1>
+    </div>
   </head>
   <body>
-    <h1>RPM Calculator</h1>
-
-    <label for="trans">Select a transmission: </label>
-    <select name="trans" id="trans" oninput="selectClicked()">
-      <option value="none" selected disabled hidden></option>
-      <option value="Muncie M20">Muncie M20</option>
-      <option value="Muncie M21/22">Muncie M21/22</option>
-      <option value="Powerglide">Powerglide</option>
-      <option value="TH350">TH350</option>
-      <option value="TH400">TH400</option>
-      <option value="200-4R">200-4R</option>
-      <option value="700-R4">700R-4</option>
-    </select>
+    <div id="transmissionSelect">
+      <label for="trans">Select a transmission: </label>
+      <select name="trans" id="trans" oninput="selectClicked()">
+        <option value="none" selected disabled hidden></option>
+        <option value="Muncie M20">Muncie M20</option>
+        <option value="Muncie M21/22">Muncie M21/22</option>
+        <option value="Powerglide">Powerglide</option>
+        <option value="TH350">TH350</option>
+        <option value="TH400">TH400</option>
+        <option value="200-4R">200-4R</option>
+        <option value="700-R4">700R-4</option>
+      </select>
+    </div>
 
     <div id="transmissionInfo">
       <h2>Transmission Ratios</h2>
