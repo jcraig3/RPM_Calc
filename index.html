@@ -2,97 +2,204 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RPM Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=Bebas+Neue&family=Yellowtail&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
-    <div id="title">
-      <h1>RPM Calculator</h1>
-    </div>
   </head>
   <body>
-    <div id="transmissionSelect">
-      <label for="trans">Select a transmission: </label>
-      <select name="trans" id="trans" oninput="selectClicked()">
-        <option value="none" selected disabled hidden></option>
-        <option value="Muncie M20">Muncie M20</option>
-        <option value="Muncie M21/22">Muncie M21/22</option>
-        <option value="Powerglide">Powerglide</option>
-        <option value="TH350">TH350</option>
-        <option value="TH400">TH400</option>
-        <option value="200-4R">200-4R</option>
-        <option value="700-R4">700R-4</option>
-      </select>
+    <div class="pinstripe" aria-hidden="true"></div>
+    <div class="wrap">
+      <header class="mast">
+        <div class="badge" aria-hidden="true">
+          <span>V8</span>
+        </div>
+        <div class="mast-copy">
+          <p class="script">Cruise</p>
+          <h1>RPM <span>Calculator</span></h1>
+          <p class="tagline">Gear ratios, rubber, and road speed</p>
+        </div>
+        <p class="est">Est. <strong>1969</strong></p>
+      </header>
+
+      <div class="scene" id="burnout" aria-hidden="true">
+        <div class="road"></div>
+        <div class="stage">
+          <div class="pair">
+            <div class="wheel">
+              <div class="tire"><div class="hub"></div></div>
+            </div>
+          </div>
+          <div class="trail">
+            <div class="smoke">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="sparks">
+              <span></span><span></span><span></span><span></span><span></span
+              ><span></span><span></span>
+            </div>
+            <div class="streaks">
+              <i></i>
+              <i></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <main class="dash">
+        <section class="panel" id="transmissionSelect">
+          <h2>Gearbox</h2>
+          <div class="field">
+            <label for="trans">Transmission</label>
+            <select name="trans" id="trans" oninput="selectClicked()">
+              <option value="none" selected disabled>Select a gearbox</option>
+              <option value="Muncie M20">Muncie M20</option>
+              <option value="Muncie M21/22">Muncie M21/22</option>
+              <option value="Powerglide">Powerglide</option>
+              <option value="TH350">TH350</option>
+              <option value="TH400">TH400</option>
+              <option value="200-4R">200-4R</option>
+              <option value="700-R4">700-R4</option>
+            </select>
+          </div>
+          <div id="transmissionInfo">
+            <div class="ratios">
+              <div class="field">
+                <label for="first">1st</label>
+                <input type="number" name="first" id="first" step="any" />
+              </div>
+              <div class="field">
+                <label for="second">2nd</label>
+                <input type="number" name="second" id="second" step="any" />
+              </div>
+              <div class="field">
+                <label for="third">3rd</label>
+                <input type="number" name="third" id="third" step="any" />
+              </div>
+              <div class="field">
+                <label for="fourth">4th</label>
+                <input type="number" name="fourth" id="fourth" step="any" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel" id="sizeRatioSpeed">
+          <h2>Rubber &amp; gears</h2>
+          <div class="field">
+            <span class="field-label" id="tire-label">Tire size</span>
+            <div class="tire-row" role="group" aria-labelledby="tire-label">
+              <input
+                type="number"
+                name="width"
+                id="width"
+                inputmode="decimal"
+                aria-label="Tire width"
+                oninput="getTire()"
+              />
+              <span class="slash" aria-hidden="true">/</span>
+              <input
+                type="number"
+                name="ratio"
+                id="ratio"
+                inputmode="decimal"
+                aria-label="Aspect ratio"
+                oninput="getTire()"
+              />
+              <span class="slash" aria-hidden="true">R</span>
+              <input
+                type="number"
+                name="rim"
+                id="rim"
+                inputmode="decimal"
+                aria-label="Rim diameter"
+                oninput="getTire()"
+              />
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="field">
+              <label for="wheelSize">Wheel diameter (in)</label>
+              <input
+                type="number"
+                name="wheelSize"
+                id="wheelSize"
+                step="any"
+                oninput="updateGetTire()"
+              />
+            </div>
+            <div class="field">
+              <label for="rear">Rear end ratio</label>
+              <input type="number" name="rear" id="rear" step="any" />
+            </div>
+            <div class="field">
+              <label for="speed">Speed (mph)</label>
+              <input type="number" name="speed" id="speed" value="65" step="any" />
+            </div>
+          </div>
+        </section>
+
+        <div class="launch">
+          <button type="button" id="enter" onclick="entered()">Calculate</button>
+        </div>
+
+        <section class="panel results" id="outRPMs">
+          <h2>Tach</h2>
+          <div class="cluster">
+            <article class="gauge">
+              <div class="bezel">
+                <div class="face">
+                  <span class="gear">1st</span>
+                  <span class="rpm" id="out1">—</span>
+                  <span class="unit">RPM</span>
+                </div>
+              </div>
+            </article>
+            <article class="gauge">
+              <div class="bezel">
+                <div class="face">
+                  <span class="gear">2nd</span>
+                  <span class="rpm" id="out2">—</span>
+                  <span class="unit">RPM</span>
+                </div>
+              </div>
+            </article>
+            <article class="gauge">
+              <div class="bezel">
+                <div class="face">
+                  <span class="gear">3rd</span>
+                  <span class="rpm" id="out3">—</span>
+                  <span class="unit">RPM</span>
+                </div>
+              </div>
+            </article>
+            <article class="gauge">
+              <div class="bezel">
+                <div class="face">
+                  <span class="gear">4th</span>
+                  <span class="rpm" id="out4">—</span>
+                  <span class="unit">RPM</span>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p id="RPMmessage">
+            On average, RPMs should range from 2200–3000 at 65 mph depending on
+            the car and engine.
+          </p>
+        </section>
+      </main>
+
+      <p id="author">
+        Built by <a href="https://jcraig3.github.io/resume/">Jayden Craig</a>
+      </p>
     </div>
-
-    <div id="transmissionInfo">
-      <h2>Transmission Ratios</h2>
-      <label for="first">1st: </label>
-      <input type="number" name="first" id="first" />
-      <br />
-      <label for="second">2nd: </label>
-      <input type="number" name="second" id="second" />
-      <br />
-      <label for="third">3rd: </label>
-      <input type="number" name="third" id="third" />
-      <br />
-      <label for="fourth">4th: </label>
-      <input type="number" name="fourth" id="fourth" />
-      <br />
-    </div>
-
-    <div id="sizeRatioSpeed">
-      <h2>Wheel Size, Rear End Ratio, and Speed</h2>
-      <label for="width">Tire: </label>
-      <input type="number" name="width" id="width" oninput="getTire()" />
-      <label for="ratio">/</label>
-      <input type="number" name="ratio" id="ratio" oninput="getTire()" />
-      <label for="rim">R</label>
-      <input type="number" name="rim" id="rim" oninput="getTire()" />
-
-      <br />
-
-      <label for="wheelSize">Wheel Size (in): </label>
-      <input
-        type="number"
-        name="wheelSize"
-        id="wheelSize"
-        oninput="updateGetTire()"
-      />
-
-      <br />
-
-      <label for="rear">Rear End Ratio: </label>
-      <input type="number" name="rear" id="rear" />
-
-      <br />
-
-      <label for="speed">Speed (mph): </label>
-      <input type="number" name="speed" id="speed" value="65" />
-    </div>
-
-    <button type="button" id="enter" onclick="entered()">ENTER</button>
-
-    <div id="outRPMs">
-      <h2>RPMs</h2>
-      <p>1st: <span id="out1">_ _ _</span></p>
-      <p>2nd: <span id="out2">_ _ _</span></p>
-      <p>3rd: <span id="out3">_ _ _</span></p>
-      <p>4th: <span id="out4">_ _ _</span></p>
-    </div>
-
-    <br />
-    <br />
-
-    <p id="RPMmessage">
-      On average, RPMs should range from 2200-3000 at 65 mph depending on the
-      car and engine type
-    </p>
-
-    <br />
-    <br />
-
-    <p id="author">
-      Built by: <a href="https://jcraig3.github.io/resume/">Jayden Craig</a>
-    </p>
+    <script type="text/javascript" src="./app.js"></script>
   </body>
-  <script type="text/javascript" src="./app.js"></script>
 </html>

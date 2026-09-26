@@ -35,17 +35,18 @@ function selectClicked() {
   } else if (trans.value == "Powerglide") {
     first.value = 1.76;
     second.value = 1.0;
-    third.value = NaN;
-    fourth.value = NaN;
+    third.value = "";
+    fourth.value = "";
   } else if (trans.value == "TH350") {
-    (first.value = 2), 52;
+    first.value = 2.52;
     second.value = 1.52;
     third.value = 1.0;
-    fourth.value = NaN;
+    fourth.value = "";
   } else if (trans.value == "TH400") {
     first.value = 2.48;
     second.value = 1.48;
     third.value = 1.0;
+    fourth.value = "";
   } else if (trans.value == "200-4R") {
     first.value = 2.74;
     second.value = 1.57;
@@ -73,20 +74,54 @@ function updateGetTire() {
 }
 
 function getRPM(transRatio) {
-  let out =
-    (speed.value * rear.value * 336.13 * transRatio.value) / tireDiameter;
-  if (out == NaN) {
-    return "_ _ _";
+  var ratio = parseFloat(transRatio.value);
+  var mph = parseFloat(speed.value);
+  var axle = parseFloat(rear.value);
+  var diameter = parseFloat(tireDiameter);
+  if (
+    !isFinite(ratio) ||
+    !isFinite(mph) ||
+    !isFinite(axle) ||
+    !isFinite(diameter) ||
+    diameter === 0
+  ) {
+    return "—";
+  }
+  var out = (mph * axle * 336.13 * ratio) / diameter;
+  if (!isFinite(out)) {
+    return "—";
   }
   console.log(transRatio.value.toString());
   return Math.trunc(out);
 }
 
+var burnout = document.getElementById("burnout");
+var burnTimer;
+
+function showRPM(el, value) {
+  el.textContent = value.toString();
+  el.classList.remove("sweet", "hot");
+  var n = parseFloat(value);
+  var mph = parseFloat(speed.value);
+  if (!isFinite(n) || mph < 60 || mph > 70) return;
+  if (n >= 2200 && n <= 3000) el.classList.add("sweet");
+  else if (n >= 5500) el.classList.add("hot");
+}
+
 function entered() {
   console.log(tireDiameter);
 
-  out1.textContent = getRPM(first).toString();
-  out2.textContent = getRPM(second).toString();
-  out3.textContent = getRPM(third).toString();
-  out4.textContent = getRPM(fourth).toString();
+  showRPM(out1, getRPM(first));
+  showRPM(out2, getRPM(second));
+  showRPM(out3, getRPM(third));
+  showRPM(out4, getRPM(fourth));
+
+  if (!burnout) return;
+  burnout.classList.remove("lit");
+  void burnout.offsetWidth;
+  burnout.classList.add("lit");
+  clearTimeout(burnTimer);
+  burnTimer = setTimeout(function () {
+    burnout.classList.remove("lit");
+  }, 900);
 }
